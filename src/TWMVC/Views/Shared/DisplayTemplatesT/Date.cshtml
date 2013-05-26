@@ -1,0 +1,6 @@
+﻿@{
+    var dateTimeFormat = ViewData["format"] ?? "yyyy-MM-dd";
+    var val = String.Format("{0:" + dateTimeFormat + "}", ViewData.TemplateInfo.FormattedModelValue);
+}
+@val
+   

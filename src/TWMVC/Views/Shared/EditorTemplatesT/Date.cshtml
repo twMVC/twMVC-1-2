@@ -1,0 +1,35 @@
+﻿@using System.Text
+@{
+    var dateTimeFormat = ViewData["format"] ?? "yyyy-MM-dd";
+    var val = String.Format("{0:" + dateTimeFormat + "}", ViewData.TemplateInfo.FormattedModelValue);
+    var maxDate =Convert.ToString( ViewData["maxDate"]);
+    var minDate =Convert.ToString( ViewData["minDate"]);
+    var my97Custom = Convert.ToString(ViewData["my97Custom"]);
+    StringBuilder sb = new StringBuilder();
+    if (!val.IsNullOrWhiteSpace())
+    {
+        sb.Append(",startDate:'" + val + "'");    
+    }
+    if (!maxDate.IsNullOrWhiteSpace())
+    {
+        sb.Append(",maxDate:'"+maxDate+"'");
+    }
+    if (!minDate.IsNullOrWhiteSpace())
+    {
+        sb.Append(",minDate:'" + minDate + "'");
+    }
+    if (!my97Custom.IsNullOrWhiteSpace())
+    {
+        sb.Append(my97Custom.StartsWith(",") ? my97Custom : "," + my97Custom);
+    }
+}
+@Html.TextBox("", val, new
+                    {
+                        onFocus = "WdatePicker({dateFmt:'" + dateTimeFormat + "'" + sb.ToString() + "})",
+                        @class = ViewData["class"],
+                        data_date = "Wdate",
+                        data_width = ViewData["data_width"],
+                        data_height = ViewData["data_height"],
+                        id = ViewData.TemplateInfo.HtmlFieldPrefix
+                    })
+   
